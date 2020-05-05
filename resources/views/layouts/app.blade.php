@@ -11,64 +11,46 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+   
 </head>
 <body>
     <div id="app">
+        <div>
+            <b-navbar toggleable="lg" type="light" variant="primary">
+              <b-navbar-brand href="{{ url('/') }}">{{ config('app.name', 'Laravel') }}</b-navbar-brand>
+          
+              <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+          
+              <b-collapse id="nav-collapse" is-nav>
+                <b-navbar-nav>
+                  <b-nav-item href="#">Link</b-nav-item>
+                </b-navbar-nav>
+          
+                <!-- Right aligned nav items -->
+                <b-navbar-nav class="ml-auto">
+                    @guest
+                    <b-dropdown-item href="{{ route('login') }}">Login</b-dropdown-item>
+                    <b-dropdown-item href="{{ route('register') }}">Register</b-dropdown-item>
+                    @else
+                  <b-nav-item-dropdown right>
+                    <!-- Using 'button-content' slot -->
+                    <template v-slot:button-content>
+                      <em>Usuario</em>
+                    </template>
+                   
+
+                    <b-nav-item-dropdown text="Username" right>
+                        <b-dropdown-item href="#">Cerrar Sesion</b-dropdown-item>
+                    @endguest
+                    </b-nav-item-dropdown>
+                  </b-nav-item-dropdown>
+                </b-navbar-nav>
+              </b-collapse>
+            </b-navbar>
+          </div>
+          
         <nav class="navbar navbar-default navbar-static-top">
-            <div class="container">
-                <div class="navbar-header">
-
-                    <!-- Collapsed Hamburger -->
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse" aria-expanded="false">
-                        <span class="sr-only">Toggle Navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-
-                    <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
-                    </a>
-                </div>
-
-                <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="nav navbar-nav">
-                        &nbsp;
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="nav navbar-nav navbar-right">
-                        <!-- Authentication Links -->
-                        @guest
-                            <li><a href="{{ route('login') }}">Login</a></li>
-                            <li><a href="{{ route('register') }}">Register</a></li>
-                        @else
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
-
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        <a href="{{ route('logout') }}"
-                                            onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                            Logout
-                                        </a>
-
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                            {{ csrf_field() }}
-                                        </form>
-                                    </li>
-                                </ul>
-                            </li>
-                        @endguest
-                    </ul>
-                </div>
-            </div>
+            
         </nav>
 
         @yield('content')
