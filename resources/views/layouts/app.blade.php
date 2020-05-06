@@ -14,6 +14,9 @@
    
 </head>
 <body>
+  <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+    {{ csrf_field() }}
+</form>
     <div id="app">
         <div>
             <b-navbar toggleable="lg" type="light" variant="primary">
@@ -32,17 +35,16 @@
                     <b-dropdown-item href="{{ route('login') }}">Login</b-dropdown-item>
                     <b-dropdown-item href="{{ route('register') }}">Register</b-dropdown-item>
                     @else
-                  <b-nav-item-dropdown right>
-                    <!-- Using 'button-content' slot -->
-                    <template v-slot:button-content>
+                  <b-nav-item-dropdown text="{{auth()->user()->name }}" right>
+                    <!--  <template v-slot:button-content>
                       <em>Usuario</em>
-                    </template>
-                   
-
-                    <b-nav-item-dropdown text="Username" right>
-                        <b-dropdown-item href="#">Cerrar Sesion</b-dropdown-item>
-                    @endguest
-                    </b-nav-item-dropdown>
+                    </template>  -->     
+                        <b-dropdown-item href="#" @click="logout">
+                          Cerrar Sesion
+                        </b-dropdown-item>
+                      </b-dropdown-item>
+                     </b-nav-item-dropdown>
+                     @endguest
                   </b-nav-item-dropdown>
                 </b-navbar-nav>
               </b-collapse>

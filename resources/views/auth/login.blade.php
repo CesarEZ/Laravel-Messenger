@@ -4,11 +4,26 @@
 <b-container>
     <b-row align-h= "center">
         <b-col cols="8">
-            <b-card title="Inicio de sesion">
+            <b-card title="Inicio de sesion" class="my-3">
+             
+                @if($errors->any())
+
+                <b-alert show variant="danger">
+                    <ul class="mb-0">
+                        @foreach ($errors->all() as $error)
+                            <li> {{$error}}</li>                  
+                        @endforeach
+                    </ul>
+                </b-alert>
+
+                @else
                 <b-alert show>
                     Por favor ingresa tus datos
                 </b-alert>
-                   <b-form-group method="POST" action="{{ route('login') }}">
+    
+                @endif
+
+                   <b-form  method="POST" action="{{ route('login') }}">
                         {{ csrf_field() }}
 
             <b-form-group id = "input-group-1" 
@@ -28,7 +43,7 @@
                 label-for = "password">
                 <b-form-input type="password"
                    id = "password" name="password" 
-                   value="{{ old('password') }}" required>                   
+                   required>                   
                  </b-form-input> 
             </b-form-group>
 
@@ -38,19 +53,21 @@
                 Recordar Sesion
             </b-form-checkbox>
         </b-form-group>
-                    <b-button href="submit" variant="primary">
-                        Ingresar
-                    </b-button>
-                    <b-button href="{{route('password.request') }}" variant="link">
-                        ¿Olvidaste tu contraseña?
-                    </b-button>
+  
+        <b-button type="submit"  variant="outline-primary">
+            
+            Ingresar
+
+        </b-button>
+
+          <b-button href="{{route('password.request') }}" variant="link">
+              ¿Olvidaste tu contraseña?
+          </b-button>
 
             </b-form>
              
         </b-card>
-                    
-   
-           
+                               
         </b-col>
      </b-row>
     
