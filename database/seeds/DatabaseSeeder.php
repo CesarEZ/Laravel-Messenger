@@ -1,5 +1,6 @@
 <?php
 
+use App\Conversation;
 use Illuminate\Database\Seeder;
 use App\User;
 class DatabaseSeeder extends Seeder
@@ -11,11 +12,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        User::create([
-            
-            'name' => 'juan',
-            'email' => 'triohost@gmail.com',
-            'password' =>  bcrypt('123456')
-        ]);
+        $this->call(UserTableSeeder::class);
+        $this->call(ConversationsTableSeeder::class);
+        $this->call(MessagesTableSeeder::class);
     }
 }
